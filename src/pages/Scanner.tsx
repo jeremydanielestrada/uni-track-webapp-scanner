@@ -1,4 +1,5 @@
 import QRScanner from "../components/system/QRscanner";
+
 import { useState } from "react";
 
 export default function Scanner() {
