@@ -50,7 +50,7 @@ export default function Authorize() {
           <span className="text-red-500 text-lg mb-3">{errorMessage}</span>
         )}
       </div>
-      <form onClick={authAssignedStudent}>
+      <form onSubmit={authAssignedStudent}>
         <div className="flex flex-col space-y-2 mb-3">
           <label htmlFor="id-numeberr" className="text-secondary font-semibold">
             ID-Number
@@ -78,7 +78,7 @@ export default function Authorize() {
         </div>
         <button
           type="submit"
-          className={`${isLoading ? "opacity-70" : "bg-primary text-white font-bold cursor-pointer hover:bg-primary/50"} w-full rounded-lg py-3 px-4 `}
+          className={`${isLoading ? "opacity-70 cursor-not-allowed bg-primary text-white font-bold" : "bg-primary text-white font-bold cursor-pointer hover:bg-primary/50"} w-full rounded-lg py-3 px-4 `}
           disabled={isLoading}
         >
           {isLoading ? "Authorizing..." : "Authorize"}
