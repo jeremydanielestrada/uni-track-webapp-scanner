@@ -13,19 +13,21 @@ export default function Authorize() {
     id_num: "",
     event_code: "",
   });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const authAssignedStudent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setIsloading(true);
-      const res = await api.post("/students/authorize");
+      const res = await api.post("/students/authorize", student);
 
       if (res.data?.authorized) {
         navigate("/scanner");
       }
     } catch (error: any) {
       console.log(error.response.data.message);
+      setErrorMessage(error?.response?.data.message);
     } finally {
       setIsloading(false);
     }
@@ -33,16 +35,20 @@ export default function Authorize() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setStudent({ id_num: "", event_code: "", [name]: value });
+    setStudent({ ...student, [name]: value });
   };
   return (
     <div className="bg-card shadow-lg rounded-lg p-6 w-80 md:min-w-100">
-      <div className="w-50 mx-auto">
+      <div className="w-full mx-auto flex flex-col items-center">
         <img
           src="/public/images/logo.png"
           alt="Logo"
-          className="object-cover"
+          className="object-cover w-25 h-25"
         />
+
+        {errorMessage && (
+          <span className="text-red-500 text-lg mb-3">{errorMessage}</span>
+        )}
       </div>
       <form onClick={authAssignedStudent}>
         <div className="flex flex-col space-y-2 mb-3">
@@ -51,8 +57,9 @@ export default function Authorize() {
           </label>
           <input
             type="text"
+            value={student.id_num}
             className=" p-2 border border-secondary-foreground  rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            name="id-number"
+            name="id_num"
             onChange={handleChange}
           />
         </div>
@@ -63,8 +70,9 @@ export default function Authorize() {
           </label>
           <input
             type="text"
+            value={student.event_code}
             className=" p-2 border border-secondary-foreground  rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            name="event code"
+            name="event_code"
             onChange={handleChange}
           />
         </div>
