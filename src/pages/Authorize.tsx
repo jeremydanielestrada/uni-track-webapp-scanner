@@ -22,6 +22,8 @@ export default function Authorize() {
       setIsloading(true);
       const res = await api.post("/students/authorize", student);
 
+      localStorage.setItem("event_code", student.event_code);
+
       if (res.data?.authorized) {
         navigate("/scanner");
       }
