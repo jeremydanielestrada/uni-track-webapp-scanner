@@ -77,6 +77,7 @@ export default function QRScanner({ onScan }: QRScannerProps) {
       <div
         id="qr-reader"
         style={{
+          width: "80%",
           maxWidth: "500px",
           margin: "0 auto",
         }}
