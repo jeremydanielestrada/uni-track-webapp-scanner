@@ -66,9 +66,22 @@ export default function QRScanner({ onScan }: QRScannerProps) {
   }, [onScan]);
 
   return (
-    <div>
-      <div id="qr-reader" style={{ width: "100%", maxWidth: "500px" }} />
-      <div style={{ marginTop: "10px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <div
+        id="qr-reader"
+        style={{
+          maxWidth: "500px",
+          margin: "0 auto",
+        }}
+      />
+      <div style={{ marginTop: "10px", textAlign: "center" }}>
         <p>
           <strong>Status:</strong> {status}
         </p>
