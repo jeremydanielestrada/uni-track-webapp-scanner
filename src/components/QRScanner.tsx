@@ -9,11 +9,12 @@ export default function QRScanner({ onScan }: QRScannerProps) {
   const qrRef = useRef<Html5Qrcode | null>(null);
   const isRunning = useRef(false);
   const isInitialized = useRef(false);
+  const lastScan = useRef<string>("");
+  const lastScanTime = useRef<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("Initializing...");
 
   useEffect(() => {
-    // Prevent double initialization
     if (isInitialized.current) return;
     isInitialized.current = true;
 
@@ -31,12 +32,22 @@ export default function QRScanner({ onScan }: QRScannerProps) {
             aspectRatio: 1.0,
           },
           (decodedText: string) => {
+            const now = Date.now();
+            // Prevent duplicate scans within 3 seconds
+            if (
+              decodedText === lastScan.current &&
+              now - lastScanTime.current < 3000
+            ) {
+              return;
+            }
+
+            lastScan.current = decodedText;
+            lastScanTime.current = now;
             console.log("QR Code detected:", decodedText);
             setStatus("QR Code scanned!");
             onScan(decodedText);
           },
           (errorMessage: string) => {
-            // Log scanning errors for debugging
             console.log("Scan error:", errorMessage);
           },
         );
