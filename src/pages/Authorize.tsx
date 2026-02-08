@@ -43,7 +43,7 @@ export default function Authorize() {
     <div className="bg-card shadow-lg rounded-lg p-6 w-80 md:min-w-100">
       <div className="w-full mx-auto flex flex-col items-center">
         <img
-          src="/public/images/logo.png"
+          src="/images/logo.png"
           alt="Logo"
           className="object-cover w-25 h-25"
         />
