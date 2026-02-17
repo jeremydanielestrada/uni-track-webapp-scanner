@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import QRScanner from "../components/QRScanner";
 import { api } from "../api/axios";
@@ -32,7 +31,6 @@ export default function Scanner() {
       console.error("Error logging student:", error.response?.data?.message);
     } finally {
       setIsLoading(false);
-      // Clear ID after 3 seconds
       setTimeout(() => setIdNum(null), 3000);
     }
   };
@@ -43,7 +41,7 @@ export default function Scanner() {
       {isLoading && <p>Processing...</p>}
       {message && (
         <p style={{ color: message.startsWith("✓") ? "green" : "red" }}>
-          {message}
+          {message}m
         </p>
       )}
       <p>Last scanned ID: {id_num || "None"}</p>
